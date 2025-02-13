@@ -1,11 +1,10 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
-
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config();
 
 const app = express();
-const cors = require('cors');
 
 const geonamesUserName = process.env.GEONAMES_USER_NAME;
 const weatherbitApiKey = process.env.WEATHERBIT_API_KEY;
@@ -92,3 +91,5 @@ app.get('/call-pixabay', (req, res) => {
 app.listen(8000, function () {
     console.log('Server listening on port 8000!')
 })
+
+export { app };
