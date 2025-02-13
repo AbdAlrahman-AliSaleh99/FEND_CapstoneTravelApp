@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Capstone Fend Travel App</title>
+    <link>
+    </lin>
+</head>
+
+<body>
+    <header>
+        <div class="">
+            Capstone Fend Travel App
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <form id="weatherForm">
+                <label for="travelLocation">Destination City</label>
+                <input id="travelLocation" type="text" name="travelLocation" placeholder="Enter city name" required>
+
+                <label for="travelDate">Travel Date</label>
+                <input id="travelDate" type="date" name="travelDate" placeholder="Enter date" required>
+                <button id="submitButton" type="submit">Save Trip</button>
+                <button id="deletButton" type="button">Remove</button>
+            </form>
+
+        </section>
+
+        <section>
+            <div id="results">
+                <strong>Trip Info</strong>
+
+                <p id="resultInfo">
+                </p>
+                <img id="cityImage" alt="No Image">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Udacity - Final Project</p>
+    </footer>
+
+    <script>
+        // if ('serviceWorker' in navigator) {
+        //     window.addEventListener('load', () => {
+        //         navigator.serviceWorker.register('/service-worker.js');
+        //     });
+        // }
+    </script>
+</body>
+
+</html>

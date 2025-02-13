@@ -1,0 +1,97 @@
+$primary-color: blue;
+$delete-color: darkred;
+$secondary-color: darkgray;
+$bg-color: #ecf0f1;
+$font-stack: 'Arial', sans-serif;
+
+body {
+    font-family: $font-stack;
+    margin: 0;
+    padding: 0;
+    background-color: $bg-color;
+}
+
+header {
+    background-color: $primary-color;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+}
+
+main {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input,
+button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid $secondary-color;
+}
+
+#submitButton {
+    background-color: $primary-color;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+#deletButton {
+    background-color: $delete-color;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+        background-color: darken($delete-color, 10%);
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: $secondary-color;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+#results {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid $secondary-color;
+    border-radius: 5px;
+}
+
+#cityImage {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    display: none;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    main {
+        width: 90%;
+        padding: 15px;
+    }
+}
