@@ -6,11 +6,12 @@ dotenv.config();
 
 const app = express();
 
+// Load API keys from environment variables
 const geonamesUserName = process.env.GEONAMES_USER_NAME;
 const weatherbitApiKey = process.env.WEATHERBIT_API_KEY;
 const pixabayApiKey = process.env.PIXABAY_API_KEY;
 
-app.use(express.static('dist'))
+app.use(express.static('dist'));
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -18,6 +19,7 @@ app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
 
+// Route to call the Geonames API and get latitude and longitude based on a location query
 app.get('/call-geonames', (req, res) => {
     const { location } = req.query;
     fetch(`http://api.geonames.org/searchJSON?q=${location}&maxRows=1&username=${geonamesUserName}`)
@@ -36,6 +38,7 @@ app.get('/call-geonames', (req, res) => {
         });
 });
 
+// Route to call the Weatherbit API and get weather data for a specific date
 app.get('/call-weatherbit', (req, res) => {
     const { lng, lat, date } = req.query;
 
@@ -69,6 +72,7 @@ app.get('/call-weatherbit', (req, res) => {
         });
 });
 
+// Route to call the Pixabay API and get an image URL for a location
 app.get('/call-pixabay', (req, res) => {
     const { location } = req.query;
 
