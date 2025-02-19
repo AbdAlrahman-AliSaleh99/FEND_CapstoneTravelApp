@@ -45,7 +45,7 @@ describe('App.js tests', () => {
 
     test('Stored trip is retrieved and displayed on page load', () => {
         getTripInfo.mockReturnValue({
-            cityName: 'Ramallah', date: '2025-02-18', minTemp: 10, maxTemp: 20,
+            cityName: 'Ramallah', date: '2025-02-25', minTemp: 10, maxTemp: 20,
             cloudCover: 30, description: 'Cloudy', imageURL: 'https://example.com/ramallah.jpg'
         });
 

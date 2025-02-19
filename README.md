@@ -2,6 +2,9 @@
 
 This project allows users to plan their travels by entering a city and trip date into a form. Upon form submission, the app validates the inputs and, if valid, fetches weather information and an image for the city. The data is then displayed to the user and stored in local storage for later access. The application is built using Webpack for both development and production environments and includes Jest for testing.
 
+## Prerequisites
+- Node.js v22.12.0
+
 ## Features
 - A form with city text input and a trip date picker.
 - Validates user input to ensure the city and date are correct.
