@@ -1,5 +1,9 @@
-// Validate the provided trip date to ensure it is not in the past 
-// and does not exceed 15 days from today.
+/**
+ * @description Validate the provided trip date to ensure it is not in the past
+ * and does not exceed 15 days from today.
+ * @param {string} dateString
+ * @returns {boolean}
+ */
 function dateValidator(dateString) {
     const inputDate = new Date(dateString);
     inputDate.setHours(0, 0, 0, 0);
@@ -17,4 +21,4 @@ function dateValidator(dateString) {
     return inputDate <= maxDate;
 }
 
-export { dateValidator }
+export { dateValidator };

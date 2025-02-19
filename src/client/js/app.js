@@ -3,8 +3,9 @@ import { storeTripInfo, getTripInfo, clearTripInfo } from './localStorage';
 
 const serverURL = 'http://localhost:8000';
 
-// Event listener to initialize stored trip data and form submission handling
-
+/**
+ * @description Initialize stored trip data and sets up form submission handling after the DOM has fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     const storedTrip = getTripInfo();
     if (storedTrip != null) {
@@ -17,23 +18,28 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', handleSubmit);
 });
 
-// Handle form submission by validating the travel date and initiating API calls
+/**
+ * @description Handles form submission by validating the travel date and initiating API calls.
+ * @param {Event} event
+ */
 function handleSubmit(event) {
     event.preventDefault();
 
     const travelLocation = document.getElementById('travelLocation').value.trim();
     const travelDate = document.getElementById('travelDate').value;
 
-    var isValidDate = dateValidator(travelDate);
+    const isValidDate = dateValidator(travelDate);
     if (isValidDate) {
         callGeonamesAPI(travelLocation, travelDate);
-    }
-    else {
+    } else {
         alert("Invalid Travel Date");
     }
 }
 
-// Populate the UI with stored trip information
+/**
+ * @description Populate the UI with stored trip information.
+ * @param {Object} storedTrip
+ */
 function fillStoredTrip(storedTrip) {
     const tripInfo = `City Name: ${storedTrip.cityName}
     Date: ${storedTrip.date}
@@ -47,15 +53,19 @@ function fillStoredTrip(storedTrip) {
     document.getElementById('resultInfo').innerText = tripInfo;
 }
 
-// Call the Geonames API to retrieve longitude and latitude of the location
+/**
+ * @description Call the Geonames API to retrieve longitude and latitude of the location.
+ * @param {string} location
+ * @param {string} date
+ * @returns {Promise<void>}
+ */
 async function callGeonamesAPI(location, date) {
     fetch(`${serverURL}/call-geonames?location=${location}`)
         .then((response) => response.json())
         .then((result) => {
-            if (result.error == 'no') {
+            if (result.error === 'no') {
                 callWeatherbitAPI(result.longitude, result.latitude, date);
-            }
-            else {
+            } else {
                 alert("Invalid destination city...");
             }
         })
@@ -64,7 +74,12 @@ async function callGeonamesAPI(location, date) {
         });
 }
 
-// Call the Weatherbit API to retrieve weather details for the given location and date
+/**
+ * @description Calls the Weatherbit API to retrieve weather details for the given location and date.
+ * @param {number} lng
+ * @param {number} lat
+ * @param {string} date
+ */
 function callWeatherbitAPI(lng, lat, date) {
     fetch(`${serverURL}/call-weatherbit?lng=${lng}&lat=${lat}&date=${date}`)
         .then((response) => response.json())
@@ -85,8 +100,7 @@ function callWeatherbitAPI(lng, lat, date) {
                         document.getElementById('cityImage').style.display = 'block';
                         document.getElementById('resultInfo').innerText = tripInfo;
 
-                        const tripInfoToStore =
-                        {
+                        const tripInfoToStore = {
                             cityName: result.cityName,
                             date: result.date,
                             minTemp: result.minTemp,
@@ -94,7 +108,7 @@ function callWeatherbitAPI(lng, lat, date) {
                             cloudCover: result.cloudCover,
                             description: result.description,
                             imageURL: imageURL
-                        }
+                        };
 
                         storeTripInfo(tripInfoToStore);
                     })
@@ -108,7 +122,11 @@ function callWeatherbitAPI(lng, lat, date) {
         });
 }
 
-// Call the Pixabay API to retrieve an image for the specified location
+/**
+ * @description Calls the Pixabay API to retrieve an image for the specified location.
+ * @param {string} location
+ * @returns {Promise<string>}
+ */
 function callPixabayAPI(location) {
     return fetch(`${serverURL}/call-pixabay?location=${location}`)
         .then((response) => response.json())

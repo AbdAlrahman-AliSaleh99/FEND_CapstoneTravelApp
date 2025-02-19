@@ -1,20 +1,23 @@
-// Store trip  information in localStorage
+/**
+ * @description Stores trip information in localStorage.
+ * @param {Object} tripInfo
+ */
 function storeTripInfo(tripInfo) {
     localStorage.setItem('tripInfo', JSON.stringify(tripInfo));
 }
 
-// Retrieve stored trip information from localStorage
+/**
+ * @description Retrieves stored trip information from localStorage.
+ * @returns {Object|null}
+ */
 function getTripInfo() {
     const tripInfo = localStorage.getItem('tripInfo');
-
-    if (tripInfo) {
-        return JSON.parse(tripInfo);
-    } else {
-        return null;
-    }
+    return tripInfo ? JSON.parse(tripInfo) : null;
 }
 
-// Clear stored trip information from localStorage and reload the page
+/**
+ * @description Clear stored trip information from localStorage and reloads the page.
+ */
 function clearTripInfo() {
     localStorage.removeItem('tripInfo');
     location.reload();

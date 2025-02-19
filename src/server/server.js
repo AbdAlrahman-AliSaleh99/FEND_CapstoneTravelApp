@@ -2,11 +2,14 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import cors from 'cors';
+
 dotenv.config();
 
 const app = express();
 
-// Load API keys from environment variables
+/**
+ * @description Load API keys from environment variables.
+ */
 const geonamesUserName = process.env.GEONAMES_USER_NAME;
 const weatherbitApiKey = process.env.WEATHERBIT_API_KEY;
 const pixabayApiKey = process.env.PIXABAY_API_KEY;
@@ -15,11 +18,20 @@ app.use(express.static('dist'));
 app.use(cors());
 app.use(bodyParser.json());
 
+/**
+ * @description Serves the index.html file from the dist folder.
+ * @param {Request} req
+ * @param {Response} res
+ */
 app.get('/', function (req, res) {
-    res.sendFile('dist/index.html')
-})
+    res.sendFile('dist/index.html');
+});
 
-// Route to call the Geonames API and get latitude and longitude based on a location query
+/**
+ * @description Calls the Geonames API and returns latitude and longitude based on a location query.
+ * @param {Request} req
+ * @param {Response} res
+ */
 app.get('/call-geonames', (req, res) => {
     const { location } = req.query;
     fetch(`http://api.geonames.org/searchJSON?q=${location}&maxRows=1&username=${geonamesUserName}`)
@@ -38,7 +50,11 @@ app.get('/call-geonames', (req, res) => {
         });
 });
 
-// Route to call the Weatherbit API and get weather data for a specific date
+/**
+ * @description Calls the Weatherbit API and returns weather data for a specific date.
+ * @param {Request} req
+ * @param {Response} res
+ */
 app.get('/call-weatherbit', (req, res) => {
     const { lng, lat, date } = req.query;
 
@@ -61,7 +77,6 @@ app.get('/call-weatherbit', (req, res) => {
                     description,
                     cityName
                 });
-
             } else {
                 res.json({ error: "yes" });
             }
@@ -72,7 +87,11 @@ app.get('/call-weatherbit', (req, res) => {
         });
 });
 
-// Route to call the Pixabay API and get an image URL for a location
+/**
+ * @description Calls the Pixabay API and returns an image URL for a specified location.
+ * @param {Request} req
+ * @param {Response} res
+ */
 app.get('/call-pixabay', (req, res) => {
     const { location } = req.query;
 
@@ -92,8 +111,12 @@ app.get('/call-pixabay', (req, res) => {
             res.status(500).json({ error: 'Failed to process request' });
         });
 });
+
+/**
+ * @description Starts the server on port 8000.
+ */
 app.listen(8000, function () {
-    console.log('Server listening on port 8000!')
-})
+    console.log('Server listening on port 8000!');
+});
 
 export { app };
